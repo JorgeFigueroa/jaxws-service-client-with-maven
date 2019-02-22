@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="42d172bf-79fb-458d-bae2-d9476125c7e9" activeEnvironment="Default" name="JaxwsServiceClientTest" resourceRoot="${projectDir}" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="47a7e16c-6d86-4383-a612-219fcadc5e7d" wsaVersion="NONE" name="TestBinding" type="wsdl" bindingName="{http://tempuri.org/}TestBinding" soapVersion="1_2" anonymous="optional" definition="../../main/resources/test.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/home/stp/code/JaxwsServiceClient/src/main/resources/test.wsdl"><con:part><con:url>file:/home/stp/code/JaxwsServiceClient/src/main/resources/test.wsdl</con:url><con:content><![CDATA[<definitions name="TestService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://tempuri.org/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema targetNamespace="http://tempuri.org/">
+      <xsd:element name="SendMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Message" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SendMessageResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="MessageResponse" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+  <message name="TestRequestMessage">
+    <part name="TestRequestPart" element="tns:SendMessage"/>
+  </message>
+  <message name="TestResponseMessage">
+    <part name="TestResponsePart" element="tns:SendMessageResponse"/>
+  </message>
+  <portType name="TestPortType">
+    <operation name="SendMessage">
+      <input name="TestInput" message="tns:TestRequestMessage"/>
+      <output name="TestOutput" message="tns:TestResponseMessage"/>
+    </operation>
+  </portType>
+  <binding name="TestBinding" type="tns:TestPortType">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="SendMessage">
+      <input name="TestInput">
+        <soap12:body use="literal"/>
+      </input>
+      <output name="TestOutput">
+        <soap12:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="TestService">
+    <port name="TestPort" binding="tns:TestBinding">
+      <soap12:address location="http://tempuri.org/testservice"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://nova:8088/mock</con:endpoint><con:endpoint>http://tempuri.org/testservice</con:endpoint></con:endpoints><con:operation id="16a5f407-7f88-4a9c-8525-47dd4596377a" isOneWay="false" action="" name="SendMessage" bindingOperationName="SendMessage" type="Request-Response" outputName="TestOutput" inputName="TestInput" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="4742ef78-d63e-4fe7-b29a-2c6b169be1a6" name="request"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8088/mock</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/">
+   <soap:Header/>
+   <soap:Body>
+      <tem:SendMessage>
+         <Message>hello</Message>
+      </tem:SendMessage>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/TestPortType/TestInput"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:mockService id="a2dc8c67-9a16-45d1-8265-2aa92aeba024" port="8088" path="/mock" host="nova" name="mockservice"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="SendMessage" id="7b2fd0ed-1ac1-425d-918d-53efee737c78" interface="TestBinding" operation="SendMessage"><con:settings/><con:defaultResponse>mockreponse</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="mockreponse" id="5169a9e3-72be-4607-adcb-1b3e5f47bf83" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/">
+   <soap:Header/>
+   <soap:Body>
+      <tem:SendMessageResponse>
+         <MessageResponse>and hello to you</MessageResponse>
+      </tem:SendMessageResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/TestPortType/TestOutput"/></con:response><con:dispatchConfig xsi:type="con:MockOperationQueryMatchDispatch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:query><con:name>triggered</con:name><con:query>declare namespace tem="http://tempuri.org/"
+//tem:SendMessage[1]/Message[1]</con:query><con:match>hello</con:match><con:response>triggered response</con:response></con:query></con:dispatchConfig></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
